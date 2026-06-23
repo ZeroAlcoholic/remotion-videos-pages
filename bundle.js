@@ -3178,7 +3178,7 @@ const Scene3_TwoMisreads = () => {
   const figCenterY = 800;
   const figFloorY = 920;
   const figSize = 200;
-  const hintTopY = figCenterY + 25;
+  const hintTopY = figCenterY - 20;
   const xCenterY = 910;
   return /* @__PURE__ */ (0,jsx_runtime.jsxs)(
     esm.AbsoluteFill,
