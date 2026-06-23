@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 5253
+/***/ 2512
 (__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1753,14 +1753,14 @@ const theme = {
 const theme_typography = {
   fontFamily: '"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, sans-serif',
   // 尺寸（基於 1920x1080 canvas）
-  // 嵌入投影片、大型會議室遠距觀看校正：放大內容型文字（body/label/caption），
-  // hero/title 原本已夠大維持不動，避免畫面失衡。
+  // 大型會議室遠距投放再校正：內容型文字（body/label/subtitle/caption）整體再放大，
+  // 確保最後排也讀得到；hero 已夠大維持不動。
   hero: 120,
-  title: 88,
-  subtitle: 62,
-  body: 46,
-  label: 42,
-  caption: 30
+  title: 92,
+  subtitle: 70,
+  body: 54,
+  label: 48,
+  caption: 38
 };
 const layout = {
   width: 1920,
@@ -2021,7 +2021,7 @@ const JaggedTitle = () => {
           "div",
           {
             style: {
-              fontSize: 52,
+              fontSize: 58,
               fontWeight: 700,
               color: theme.textPrimary,
               letterSpacing: "0.28em",
@@ -2035,122 +2035,14 @@ const JaggedTitle = () => {
           "div",
           {
             style: {
-              fontSize: 32,
-              fontWeight: 500,
+              fontSize: 44,
+              fontWeight: 600,
               color: theme.textSecondary,
               letterSpacing: "0.08em",
               marginTop: 16,
               opacity: taglineOpacity
             },
             children: "AI \u6574\u9AD4\u8B8A\u5F37 \uFF5C \u4F46\u4E0D\u662F\u5E73\u6ED1\u53EF\u9760"
-          }
-        )
-      ]
-    }
-  );
-};
-
-;// ./src/videos/jagged-intelligence/components/AxisFrame.tsx
-
-
-
-
-
-
-const AxisFrame = () => {
-  const frame = (0,esm.useCurrentFrame)();
-  const appear = (0,esm.interpolate)(frame, [40, 95], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: EASE_OUT_CUBIC
-  });
-  const fadeOut = (0,esm.interpolate)(
-    frame,
-    [TITLE.fadeOutFrom, TITLE.fadeOutBy],
-    [1, 0],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
-  const opacity = appear * fadeOut * 0.6;
-  const axisX = layout.curveLeft - 48;
-  const labelX = axisX - 30;
-  const xLabelX = layout.curveLeft + layoutHelpers.curveWidth * 0.5;
-  return /* @__PURE__ */ (0,jsx_runtime.jsxs)(
-    "svg",
-    {
-      width: layout.width,
-      height: layout.height,
-      style: {
-        position: "absolute",
-        inset: 0,
-        opacity,
-        fontFamily: theme_typography.fontFamily
-      },
-      children: [
-        /* @__PURE__ */ (0,jsx_runtime.jsx)(
-          "line",
-          {
-            x1: axisX,
-            y1: layout.curveTop,
-            x2: axisX,
-            y2: layout.curveBottom,
-            stroke: theme.textMuted,
-            strokeWidth: 1.5,
-            opacity: 0.5
-          }
-        ),
-        /* @__PURE__ */ (0,jsx_runtime.jsx)(
-          "text",
-          {
-            x: axisX,
-            y: layout.curveTop - 10,
-            fill: theme.textMuted,
-            fontSize: 22,
-            fontWeight: 600,
-            textAnchor: "middle",
-            fontFamily: "inherit",
-            children: "\u9AD8"
-          }
-        ),
-        /* @__PURE__ */ (0,jsx_runtime.jsx)(
-          "text",
-          {
-            x: axisX,
-            y: layout.curveBottom + 26,
-            fill: theme.textMuted,
-            fontSize: 22,
-            fontWeight: 600,
-            textAnchor: "middle",
-            fontFamily: "inherit",
-            children: "\u4F4E"
-          }
-        ),
-        /* @__PURE__ */ (0,jsx_runtime.jsx)(
-          "text",
-          {
-            x: labelX,
-            y: layoutHelpers.baselineY,
-            fill: theme.textSecondary,
-            fontSize: theme_typography.caption,
-            fontWeight: 600,
-            textAnchor: "middle",
-            fontFamily: "inherit",
-            transform: `rotate(-90 ${labelX} ${layoutHelpers.baselineY})`,
-            style: { letterSpacing: "0.16em" },
-            children: "\u53EF\u9760\u6027"
-          }
-        ),
-        /* @__PURE__ */ (0,jsx_runtime.jsx)(
-          "text",
-          {
-            x: xLabelX,
-            y: layout.curveBottom + 62,
-            fill: theme.textSecondary,
-            fontSize: theme_typography.caption,
-            fontWeight: 600,
-            textAnchor: "middle",
-            fontFamily: "inherit",
-            style: { letterSpacing: "0.16em" },
-            children: "\u4E0D\u540C\u5DE5\u4F5C\u4EFB\u52D9"
           }
         )
       ]
@@ -2386,7 +2278,9 @@ const copy = {
       { id: "permissions", title: "Permissions", subtitle: "\u6B0A\u9650\u63A7\u7BA1" },
       { id: "evaluation", title: "Evaluation", subtitle: "\u8A55\u4F30\u56DE\u994B" }
     ],
-    amplifier: ["\u653E\u5927\u6548\u7387", "\u653E\u5927\u7522\u80FD", "\u653E\u5927\u601D\u8003", "\u653E\u5927\u8996\u89D2", "\u653E\u5927\u6D1E\u5BDF"],
+    // 「放大」是共用前綴（小字），關鍵詞放大顯示，避免五個「放大」都搶版面。
+    amplifierPrefix: "\u653E\u5927",
+    amplifier: ["\u6548\u7387", "\u7522\u80FD", "\u601D\u8003", "\u8996\u89D2", "\u6D1E\u5BDF"],
     augmentedHint: "\u5F37\u5316\u5F8C AI \u7A69\u5B9A\u767C\u63EE"
   },
   scene5: {
@@ -3376,13 +3270,13 @@ const Scene3_TwoMisreads = () => {
           {
             style: {
               position: "absolute",
-              left: leftCenterX - 250,
+              left: leftCenterX - 290,
               top: hintTopY,
-              width: 500,
+              width: 580,
               textAlign: "center",
               opacity: hintOpacity * hintPulse,
               color: theme.peakGlow,
-              fontSize: 46,
+              fontSize: 54,
               fontWeight: 800,
               letterSpacing: "0.06em",
               textShadow: `0 2px 8px ${theme.bgDeep}`
@@ -3395,13 +3289,13 @@ const Scene3_TwoMisreads = () => {
           {
             style: {
               position: "absolute",
-              left: rightCenterX - 250,
+              left: rightCenterX - 290,
               top: hintTopY,
-              width: 500,
+              width: 580,
               textAlign: "center",
               opacity: hintOpacity * hintPulse,
               color: theme.valley,
-              fontSize: 46,
+              fontSize: 54,
               fontWeight: 800,
               letterSpacing: "0.06em",
               textShadow: `0 2px 8px ${theme.bgDeep}`
@@ -3595,7 +3489,7 @@ const AmplifierHalo = ({ start, end }) => {
           );
           const pulsePhase = (frame - localStart) % 40 / 40;
           const radius = 50 + pulsePhase * 18;
-          const word = copy.scene4.amplifier[i];
+          const keyword = copy.scene4.amplifier[i];
           return /* @__PURE__ */ (0,jsx_runtime.jsxs)("g", { opacity: baseOpacity, children: [
             /* @__PURE__ */ (0,jsx_runtime.jsx)(
               "circle",
@@ -3622,17 +3516,18 @@ const AmplifierHalo = ({ start, end }) => {
                 opacity: 0.85
               }
             ),
-            /* @__PURE__ */ (0,jsx_runtime.jsx)(
+            /* @__PURE__ */ (0,jsx_runtime.jsxs)(
               "text",
               {
                 x: px.x + 50,
-                y: px.y - 40,
+                y: px.y - 38,
                 fill: theme.peakGlow,
-                fontSize: 36,
-                fontWeight: 700,
                 fontFamily: "inherit",
                 textAnchor: "start",
-                children: word
+                children: [
+                  /* @__PURE__ */ (0,jsx_runtime.jsx)("tspan", { fontSize: 30, fontWeight: 600, opacity: 0.85, children: copy.scene4.amplifierPrefix }),
+                  /* @__PURE__ */ (0,jsx_runtime.jsx)("tspan", { fontSize: 56, fontWeight: 800, dx: 4, children: keyword })
+                ]
               }
             )
           ] }, `halo-${i}`);
@@ -3857,7 +3752,7 @@ const ValleyFills = ({ riseStart, staggerStep = 32, hideLabels = false }) => {
                   x: region.labelXPx - labelW / 2,
                   y: labelTopY,
                   width: labelW,
-                  height: 112,
+                  height: 122,
                   fill: theme.bgDeep,
                   stroke: color.stroke,
                   strokeWidth: 2,
@@ -3868,13 +3763,13 @@ const ValleyFills = ({ riseStart, staggerStep = 32, hideLabels = false }) => {
                 "text",
                 {
                   x: region.labelXPx,
-                  y: labelTopY + 42,
+                  y: labelTopY + 44,
                   fill: color.stroke,
-                  fontSize: 34,
+                  fontSize: 36,
                   fontWeight: 700,
                   textAnchor: "middle",
                   fontFamily: "inherit",
-                  style: { letterSpacing: "0.02em" },
+                  style: { letterSpacing: "0.01em" },
                   children: mechanism.title
                 }
               ),
@@ -3882,9 +3777,9 @@ const ValleyFills = ({ riseStart, staggerStep = 32, hideLabels = false }) => {
                 "text",
                 {
                   x: region.labelXPx,
-                  y: labelTopY + 86,
+                  y: labelTopY + 94,
                   fill: theme.textPrimary,
-                  fontSize: 38,
+                  fontSize: 46,
                   fontWeight: 700,
                   textAnchor: "middle",
                   fontFamily: "inherit",
@@ -4339,7 +4234,6 @@ const Scene5_CollabRail = () => {
 
 
 
-
 const SceneFade = ({ children, fadeIn = 14 }) => {
   const frame = (0,esm.useCurrentFrame)();
   const opacity = (0,esm.interpolate)(frame, [0, fadeIn], [0, 1], {
@@ -4351,7 +4245,6 @@ const SceneFade = ({ children, fadeIn = 14 }) => {
 const JaggedIntelligenceExplainer = () => {
   return /* @__PURE__ */ (0,jsx_runtime.jsxs)(esm.AbsoluteFill, { children: [
     /* @__PURE__ */ (0,jsx_runtime.jsx)(Background, {}),
-    /* @__PURE__ */ (0,jsx_runtime.jsx)(AxisFrame, {}),
     /* @__PURE__ */ (0,jsx_runtime.jsx)(
       esm.Sequence,
       {
@@ -37758,7 +37651,7 @@ var NoReactInternals = {
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
 /******/ 	__webpack_require__(6507);
-/******/ 	__webpack_require__(5253);
+/******/ 	__webpack_require__(2512);
 /******/ 	__webpack_require__(3610);
 /******/ 	var __webpack_exports__ = __webpack_require__(3482);
 /******/ 	
