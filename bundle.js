@@ -2355,7 +2355,9 @@ const copy = {
   scene5: {
     title: "\u91CD\u69CB\u5DE5\u4F5C\u6D41\u7A0B\uFF0C\u8207 AI \u5354\u4F5C",
     hero: ["\u8B93 AI \u6210\u70BA\u80FD\u529B\u653E\u5927\u5668", "\u4E0D\u662F\u804A\u5929\u5C0D\u8C61"],
-    tail: "\u5DE5\u4F5C\u6A21\u5F0F\u6539\u8B8A"
+    tail: "\u5DE5\u4F5C\u6A21\u5F0F\u6539\u8B8A",
+    // 結尾定格卡的可信度註腳：影片被暫停在最後一格時，提供研究依據。
+    source: "\u6982\u5FF5\u4F9D\u64DA\u3000Jagged Technological Frontier\uFF08HBS \xB7 BCG\uFF09\u3000\uFF5C\u3000Artificial Jagged Intelligence\uFF08Google, 2025\uFF09"
   }
 };
 
@@ -3997,11 +3999,22 @@ const Scene5_CollabRail = () => {
     [1, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
+  const POSTER_CHART_RESIDUAL = 0;
   const chartOpacity = (0,esm.interpolate)(
     frame,
     [Scene5_CollabRail_B.finalText.start, Scene5_CollabRail_B.finalText.start + 30],
-    [1, 0.18],
+    [1, POSTER_CHART_RESIDUAL],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  const posterOp = (0,esm.interpolate)(
+    frame,
+    [Scene5_CollabRail_B.finalText.start + 50, Scene5_CollabRail_B.finalText.start + 78],
+    [0, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: EASE_OUT_CUBIC
+    }
   );
   const heroLine1Op = (0,esm.interpolate)(
     frame,
@@ -4230,8 +4243,48 @@ const Scene5_CollabRail = () => {
               },
               children: copy.scene5.hero[1]
             }
+          ),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)(
+            "div",
+            {
+              style: {
+                width: 140,
+                height: 3,
+                marginTop: 40,
+                borderRadius: 2,
+                background: theme.textAccent,
+                opacity: posterOp * 0.8,
+                boxShadow: `0 0 16px ${theme.textAccent}66`
+              }
+            }
           )
         ]
+      }
+    ),
+    /* @__PURE__ */ (0,jsx_runtime.jsx)(
+      "div",
+      {
+        style: {
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 56,
+          textAlign: "center",
+          opacity: posterOp,
+          pointerEvents: "none"
+        },
+        children: /* @__PURE__ */ (0,jsx_runtime.jsx)(
+          "div",
+          {
+            style: {
+              color: theme.textMuted,
+              fontSize: 24,
+              fontWeight: 500,
+              letterSpacing: "0.06em"
+            },
+            children: copy.scene5.source
+          }
+        )
       }
     )
   ] });
