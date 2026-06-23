@@ -2288,7 +2288,7 @@ const copy = {
     hero: ["\u8B93 AI \u6210\u70BA\u80FD\u529B\u653E\u5927\u5668", "\u4E0D\u662F\u804A\u5929\u5C0D\u8C61"],
     tail: "\u5DE5\u4F5C\u6A21\u5F0F\u6539\u8B8A",
     // 結尾定格卡的可信度註腳：影片被暫停在最後一格時，提供研究依據。
-    source: "\u6982\u5FF5\u4F9D\u64DA\u3000Jagged Technological Frontier\uFF08HBS \xB7 BCG\uFF09\u3000\uFF5C\u3000Artificial Jagged Intelligence\uFF08Google, 2025\uFF09"
+    source: "Reference\u3000Andrej Karpathy\u300CJagged Intelligence\u300D\u3000\uFF5C\u3000HBS \xB7 BCG\u300CJagged Technological Frontier\u300D\u3000\uFF5C\u3000Google AJI\uFF082025\uFF09"
   }
 };
 
@@ -3847,7 +3847,7 @@ const Scene4_PillarsBridge = () => {
         style: {
           position: "absolute",
           right: layout.safeMargin + 40,
-          top: 130,
+          top: 92,
           opacity: augHintOpacity,
           textAlign: "right"
         },
@@ -4210,9 +4210,9 @@ const Scene5_CollabRail = () => {
           {
             style: {
               color: theme.textMuted,
-              fontSize: 24,
+              fontSize: 28,
               fontWeight: 500,
-              letterSpacing: "0.06em"
+              letterSpacing: "0.04em"
             },
             children: copy.scene5.source
           }
