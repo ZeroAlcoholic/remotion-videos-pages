@@ -2071,10 +2071,9 @@ const AxisFrame = () => {
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
   const opacity = appear * fadeOut * 0.6;
-  const yX = layout.curveLeft - 58;
-  const yY = layoutHelpers.baselineY;
-  const xY = layout.curveBottom + 60;
-  const xX = layout.curveLeft + layoutHelpers.curveWidth * 0.5;
+  const axisX = layout.curveLeft - 48;
+  const labelX = axisX - 30;
+  const xLabelX = layout.curveLeft + layoutHelpers.curveWidth * 0.5;
   return /* @__PURE__ */ (0,jsx_runtime.jsxs)(
     "svg",
     {
@@ -2088,32 +2087,70 @@ const AxisFrame = () => {
       },
       children: [
         /* @__PURE__ */ (0,jsx_runtime.jsx)(
-          "text",
+          "line",
           {
-            x: yX,
-            y: yY,
-            fill: theme.textSecondary,
-            fontSize: theme_typography.caption,
-            fontWeight: 600,
-            textAnchor: "middle",
-            fontFamily: "inherit",
-            transform: `rotate(-90 ${yX} ${yY})`,
-            style: { letterSpacing: "0.18em" },
-            children: "\u2191 \u4EFB\u52D9\u53EF\u9760\u6027"
+            x1: axisX,
+            y1: layout.curveTop,
+            x2: axisX,
+            y2: layout.curveBottom,
+            stroke: theme.textMuted,
+            strokeWidth: 1.5,
+            opacity: 0.5
           }
         ),
         /* @__PURE__ */ (0,jsx_runtime.jsx)(
           "text",
           {
-            x: xX,
-            y: xY,
+            x: axisX,
+            y: layout.curveTop - 10,
+            fill: theme.textMuted,
+            fontSize: 22,
+            fontWeight: 600,
+            textAnchor: "middle",
+            fontFamily: "inherit",
+            children: "\u9AD8"
+          }
+        ),
+        /* @__PURE__ */ (0,jsx_runtime.jsx)(
+          "text",
+          {
+            x: axisX,
+            y: layout.curveBottom + 26,
+            fill: theme.textMuted,
+            fontSize: 22,
+            fontWeight: 600,
+            textAnchor: "middle",
+            fontFamily: "inherit",
+            children: "\u4F4E"
+          }
+        ),
+        /* @__PURE__ */ (0,jsx_runtime.jsx)(
+          "text",
+          {
+            x: labelX,
+            y: layoutHelpers.baselineY,
             fill: theme.textSecondary,
             fontSize: theme_typography.caption,
             fontWeight: 600,
             textAnchor: "middle",
             fontFamily: "inherit",
-            style: { letterSpacing: "0.18em" },
-            children: "\u4E0D\u540C\u5DE5\u4F5C\u4EFB\u52D9 \u2192"
+            transform: `rotate(-90 ${labelX} ${layoutHelpers.baselineY})`,
+            style: { letterSpacing: "0.16em" },
+            children: "\u53EF\u9760\u6027"
+          }
+        ),
+        /* @__PURE__ */ (0,jsx_runtime.jsx)(
+          "text",
+          {
+            x: xLabelX,
+            y: layout.curveBottom + 62,
+            fill: theme.textSecondary,
+            fontSize: theme_typography.caption,
+            fontWeight: 600,
+            textAnchor: "middle",
+            fontFamily: "inherit",
+            style: { letterSpacing: "0.16em" },
+            children: "\u4E0D\u540C\u5DE5\u4F5C\u4EFB\u52D9"
           }
         )
       ]
