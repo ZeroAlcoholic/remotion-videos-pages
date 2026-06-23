@@ -1753,12 +1753,14 @@ const theme = {
 const theme_typography = {
   fontFamily: '"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, sans-serif',
   // 尺寸（基於 1920x1080 canvas）
+  // 嵌入投影片、大型會議室遠距觀看校正：放大內容型文字（body/label/caption），
+  // hero/title 原本已夠大維持不動，避免畫面失衡。
   hero: 120,
-  title: 84,
-  subtitle: 56,
-  body: 36,
-  label: 32,
-  caption: 24
+  title: 88,
+  subtitle: 62,
+  body: 46,
+  label: 42,
+  caption: 30
 };
 const layout = {
   width: 1920,
@@ -2019,7 +2021,7 @@ const JaggedTitle = () => {
           "div",
           {
             style: {
-              fontSize: 44,
+              fontSize: 52,
               fontWeight: 700,
               color: theme.textPrimary,
               letterSpacing: "0.28em",
@@ -2033,7 +2035,7 @@ const JaggedTitle = () => {
           "div",
           {
             style: {
-              fontSize: 26,
+              fontSize: 32,
               fontWeight: 500,
               color: theme.textSecondary,
               letterSpacing: "0.08em",
@@ -3293,13 +3295,13 @@ const Scene3_TwoMisreads = () => {
           {
             style: {
               position: "absolute",
-              left: leftCenterX - 200,
+              left: leftCenterX - 250,
               top: hintTopY,
-              width: 400,
+              width: 500,
               textAlign: "center",
               opacity: hintOpacity * hintPulse,
               color: theme.peakGlow,
-              fontSize: 38,
+              fontSize: 46,
               fontWeight: 800,
               letterSpacing: "0.06em",
               textShadow: `0 2px 8px ${theme.bgDeep}`
@@ -3312,13 +3314,13 @@ const Scene3_TwoMisreads = () => {
           {
             style: {
               position: "absolute",
-              left: rightCenterX - 200,
+              left: rightCenterX - 250,
               top: hintTopY,
-              width: 400,
+              width: 500,
               textAlign: "center",
               opacity: hintOpacity * hintPulse,
               color: theme.valley,
-              fontSize: 38,
+              fontSize: 46,
               fontWeight: 800,
               letterSpacing: "0.06em",
               textShadow: `0 2px 8px ${theme.bgDeep}`
@@ -3545,7 +3547,7 @@ const AmplifierHalo = ({ start, end }) => {
                 x: px.x + 50,
                 y: px.y - 40,
                 fill: theme.peakGlow,
-                fontSize: 28,
+                fontSize: 36,
                 fontWeight: 700,
                 fontFamily: "inherit",
                 textAnchor: "start",
@@ -3712,7 +3714,7 @@ const ValleyFills = ({ riseStart, staggerStep = 32, hideLabels = false }) => {
             { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
           );
           const labelTopY = layout.curveBottom + 32;
-          const labelW = 270;
+          const labelW = 272;
           const flashOpacity = (0,esm.interpolate)(
             frame,
             [localStart + 25, localStart + 35, localStart + 60],
@@ -3774,7 +3776,7 @@ const ValleyFills = ({ riseStart, staggerStep = 32, hideLabels = false }) => {
                   x: region.labelXPx - labelW / 2,
                   y: labelTopY,
                   width: labelW,
-                  height: 96,
+                  height: 112,
                   fill: theme.bgDeep,
                   stroke: color.stroke,
                   strokeWidth: 2,
@@ -3785,13 +3787,13 @@ const ValleyFills = ({ riseStart, staggerStep = 32, hideLabels = false }) => {
                 "text",
                 {
                   x: region.labelXPx,
-                  y: labelTopY + 40,
+                  y: labelTopY + 42,
                   fill: color.stroke,
-                  fontSize: 32,
+                  fontSize: 34,
                   fontWeight: 700,
                   textAnchor: "middle",
                   fontFamily: "inherit",
-                  style: { letterSpacing: "0.04em" },
+                  style: { letterSpacing: "0.02em" },
                   children: mechanism.title
                 }
               ),
@@ -3799,10 +3801,10 @@ const ValleyFills = ({ riseStart, staggerStep = 32, hideLabels = false }) => {
                 "text",
                 {
                   x: region.labelXPx,
-                  y: labelTopY + 76,
+                  y: labelTopY + 86,
                   fill: theme.textPrimary,
-                  fontSize: 30,
-                  fontWeight: 600,
+                  fontSize: 38,
+                  fontWeight: 700,
                   textAnchor: "middle",
                   fontFamily: "inherit",
                   children: mechanism.subtitle
@@ -4111,7 +4113,7 @@ const Scene5_CollabRail = () => {
                 "div",
                 {
                   style: {
-                    fontSize: 76,
+                    fontSize: 84,
                     fontWeight: 900,
                     color: theme.textAccent,
                     letterSpacing: "0.08em",
