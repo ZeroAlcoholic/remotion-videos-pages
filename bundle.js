@@ -2505,102 +2505,67 @@ const JaggedCurve = ({ drawStart = 0, drawEnd = 300, dim = false }) => {
 
 
 
-const PeakValleyLabel = ({ startFrame, staggerStep = 10 }) => {
+const PeakValleyLabel = ({ drawStart, drawEnd, lag = 6 }) => {
   const frame = (0,esm.useCurrentFrame)();
-  const peaks = JAGGED_POINTS.filter((p) => p.kind === "peak");
-  const valleys = JAGGED_POINTS.filter((p) => p.kind === "valley");
-  return /* @__PURE__ */ (0,jsx_runtime.jsxs)(
+  const points = JAGGED_POINTS.filter((p) => p.kind !== "mid");
+  return /* @__PURE__ */ (0,jsx_runtime.jsx)(
     "svg",
     {
       width: layout.width,
       height: layout.height,
       style: { position: "absolute", inset: 0 },
-      children: [
-        peaks.map((pt, i) => {
-          const px = toPx(pt);
-          const local = startFrame + i * staggerStep;
-          const opacity = (0,esm.interpolate)(frame, [local, local + 20], [0, 1], {
+      children: points.map((pt, i) => {
+        const px = toPx(pt);
+        const isPeak = pt.kind === "peak";
+        const local = drawStart + pt.x * (drawEnd - drawStart) + lag;
+        const opacity = (0,esm.interpolate)(frame, [local, local + 20], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+          easing: EASE_OUT_CUBIC
+        });
+        const dy = (0,esm.interpolate)(
+          frame,
+          [local, local + 24],
+          [isPeak ? -40 : 40, 0],
+          {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
             easing: EASE_OUT_CUBIC
-          });
-          const dy = (0,esm.interpolate)(frame, [local, local + 24], [-40, 0], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: EASE_OUT_CUBIC
-          });
-          return /* @__PURE__ */ (0,jsx_runtime.jsxs)("g", { opacity, children: [
-            /* @__PURE__ */ (0,jsx_runtime.jsx)(
-              "text",
-              {
-                x: px.x,
-                y: px.y - 30 + dy,
-                fill: theme.peakGlow,
-                fontSize: theme_typography.label,
-                fontWeight: 700,
-                textAnchor: "middle",
-                fontFamily: "inherit",
-                style: { letterSpacing: "0.05em" },
-                children: pt.label
-              }
-            ),
-            /* @__PURE__ */ (0,jsx_runtime.jsx)(
-              "line",
-              {
-                x1: px.x,
-                y1: px.y - 14,
-                x2: px.x,
-                y2: px.y - 22 + dy,
-                stroke: theme.peakGlow,
-                strokeWidth: 1.5,
-                opacity: 0.6
-              }
-            )
-          ] }, `peak-label-${i}`);
-        }),
-        valleys.map((pt, i) => {
-          const px = toPx(pt);
-          const local = startFrame + (i + peaks.length) * staggerStep;
-          const opacity = (0,esm.interpolate)(frame, [local, local + 20], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: EASE_OUT_CUBIC
-          });
-          const dy = (0,esm.interpolate)(frame, [local, local + 24], [40, 0], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: EASE_OUT_CUBIC
-          });
-          return /* @__PURE__ */ (0,jsx_runtime.jsxs)("g", { opacity, children: [
-            /* @__PURE__ */ (0,jsx_runtime.jsx)(
-              "text",
-              {
-                x: px.x,
-                y: px.y + 56 + dy,
-                fill: theme.valley,
-                fontSize: theme_typography.label,
-                fontWeight: 700,
-                textAnchor: "middle",
-                fontFamily: "inherit",
-                style: { letterSpacing: "0.05em" },
-                children: pt.label
-              }
-            ),
-            /* @__PURE__ */ (0,jsx_runtime.jsx)(
-              "line",
-              {
-                x1: px.x,
-                y1: px.y + 14,
-                x2: px.x,
-                y2: px.y + 30 + dy,
-                stroke: theme.valley,
-                strokeWidth: 1.5,
-                opacity: 0.6
-              }
-            )
-          ] }, `valley-label-${i}`);
-        })
-      ]
+          }
+        );
+        const textY = isPeak ? px.y - 30 + dy : px.y + 56 + dy;
+        const color = isPeak ? theme.peakGlow : theme.valley;
+        const lineY1 = isPeak ? px.y - 14 : px.y + 14;
+        const lineY2 = isPeak ? px.y - 22 + dy : px.y + 30 + dy;
+        return /* @__PURE__ */ (0,jsx_runtime.jsxs)("g", { opacity, children: [
+          /* @__PURE__ */ (0,jsx_runtime.jsx)(
+            "text",
+            {
+              x: px.x,
+              y: textY,
+              fill: color,
+              fontSize: theme_typography.label,
+              fontWeight: 700,
+              textAnchor: "middle",
+              fontFamily: "inherit",
+              style: { letterSpacing: "0.05em" },
+              children: pt.label
+            }
+          ),
+          /* @__PURE__ */ (0,jsx_runtime.jsx)(
+            "line",
+            {
+              x1: px.x,
+              y1: lineY1,
+              x2: px.x,
+              y2: lineY2,
+              stroke: color,
+              strokeWidth: 1.5,
+              opacity: 0.6
+            }
+          )
+        ] }, `label-${i}`);
+      })
     }
   );
 };
@@ -2687,7 +2652,13 @@ const Scene2_JaggedReveal = () => {
         drawEnd: Scene2_JaggedReveal_B.jaggedDrawIn.end
       }
     ),
-    /* @__PURE__ */ (0,jsx_runtime.jsx)(PeakValleyLabel, { startFrame: Scene2_JaggedReveal_B.labelsAppear.start, staggerStep: 10 })
+    /* @__PURE__ */ (0,jsx_runtime.jsx)(
+      PeakValleyLabel,
+      {
+        drawStart: Scene2_JaggedReveal_B.jaggedDrawIn.start,
+        drawEnd: Scene2_JaggedReveal_B.jaggedDrawIn.end
+      }
+    )
   ] });
 };
 
