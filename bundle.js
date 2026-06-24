@@ -1820,6 +1820,45 @@ const Background = () => {
   );
 };
 
+;// ./src/videos/jagged-intelligence/data/copy.ts
+
+const copy = {
+  scene1: {
+    headline: "\u4EBA\u985E\u5C08\u696D",
+    explanations: ["\u7A69\u5B9A\u5224\u65B7", "\u7522\u80FD\u6709\u9650"]
+  },
+  scene2: {
+    backgroundHint: "\u6574\u9AD4\u80FD\u529B\u6301\u7E8C\u5411\u4E0A",
+    center: ["AI \u6574\u9AD4\u8B8A\u5F37", "\u4F46\u4E0D\u662F\u5E73\u6ED1\u53EF\u9760"]
+  },
+  scene3: {
+    left: { title: "\u53EA\u770B\u9AD8\u5CF0", subtitle: "\u5168\u90E8\u4EA4\u7D66 AI" },
+    right: { title: "\u53EA\u770B\u4F4E\u8C37", subtitle: "\u5B8C\u5168\u4E0D\u7528 AI" },
+    leftIllusionHint: "\u8AA4\u4FE1\uFF1A\u4EE5\u70BA\u90FD\u9019\u9EBC\u5F37",
+    rightIllusionHint: "\u62D2\u7528\uFF1A\u4EE5\u70BA\u90FD\u9019\u9EBC\u5F31"
+  },
+  scene4: {
+    pillars: [
+      { id: "human", title: "Expertise", subtitle: "\u5C08\u696D\u5224\u65B7" },
+      { id: "context", title: "Context", subtitle: "\u6B63\u78BA\u8CC7\u6599" },
+      { id: "harness", title: "Harness", subtitle: "\u6D41\u7A0B\u63A7\u5236" },
+      { id: "permissions", title: "Permissions", subtitle: "\u6B0A\u9650\u63A7\u7BA1" },
+      { id: "evaluation", title: "Evaluation", subtitle: "\u8A55\u4F30\u56DE\u994B" }
+    ],
+    // 「放大」是共用前綴（小字），關鍵詞放大顯示，避免五個「放大」都搶版面。
+    amplifierPrefix: "\u653E\u5927",
+    amplifier: ["\u6548\u7387", "\u7522\u80FD", "\u601D\u8003", "\u8996\u89D2", "\u6D1E\u5BDF"],
+    augmentedHint: "\u5F37\u5316\u5F8C AI \u7A69\u5B9A\u767C\u63EE"
+  },
+  scene5: {
+    title: "\u91CD\u69CB\u5DE5\u4F5C\u6D41\u7A0B\uFF0C\u8207 AI \u5354\u4F5C",
+    hero: ["\u8B93 AI \u6210\u70BA\u80FD\u529B\u653E\u5927\u5668", "\u4E0D\u662F\u804A\u5929\u5C0D\u8C61"],
+    tail: "\u5DE5\u4F5C\u6A21\u5F0F\u6539\u8B8A",
+    // 結尾定格卡的可信度註腳：影片被暫停在最後一格時，提供研究依據。
+    source: "Reference\u3000Andrej Karpathy\u300CJagged Intelligence\u300D\u3000\uFF5C\u3000HBS \xB7 BCG\u300CJagged Technological Frontier\u300D\u3000\uFF5C\u3000Google AJI\uFF082025\uFF09"
+  }
+};
+
 ;// ./src/videos/jagged-intelligence/data/timing.ts
 
 const FPS = 30;
@@ -1854,11 +1893,8 @@ const BEATS = {
   },
   scene2: {
     arrowFlash: { start: 330, end: 420 },
-    jaggedDrawIn: { start: 360, end: 600 },
-    labelsAppear: { start: 590, end: 710 },
-    // 略提前；10 標籤 stagger
-    labelsHold: { start: 710, end: 770 }
-    // 約 2s reading hold（已裁短）
+    // 標籤與鋸齒線同步亮出（見 PeakValleyLabel）；畫完到 Scene 2 結束為閱讀停留。
+    jaggedDrawIn: { start: 360, end: 600 }
   },
   scene3: {
     bridge: { start: 0, end: 90 },
@@ -1885,6 +1921,7 @@ const BEATS = {
 };
 
 ;// ./src/videos/jagged-intelligence/components/JaggedTitle.tsx
+
 
 
 
@@ -2042,7 +2079,7 @@ const JaggedTitle = () => {
               marginTop: 16,
               opacity: taglineOpacity
             },
-            children: "AI \u6574\u9AD4\u8B8A\u5F37 \uFF5C \u4F46\u4E0D\u662F\u5E73\u6ED1\u53EF\u9760"
+            children: copy.scene2.center.join(" \uFF5C ")
           }
         )
       ]
@@ -2251,45 +2288,6 @@ const HumanLine = ({ drawStart = 0, drawEnd = 120, dim = false }) => {
       ]
     }
   );
-};
-
-;// ./src/videos/jagged-intelligence/data/copy.ts
-
-const copy = {
-  scene1: {
-    headline: "\u4EBA\u985E\u5C08\u696D",
-    explanations: ["\u7A69\u5B9A\u5224\u65B7", "\u7522\u80FD\u6709\u9650"]
-  },
-  scene2: {
-    backgroundHint: "\u6574\u9AD4\u80FD\u529B\u6301\u7E8C\u5411\u4E0A",
-    center: ["AI \u6574\u9AD4\u8B8A\u5F37", "\u4F46\u4E0D\u662F\u5E73\u6ED1\u53EF\u9760"]
-  },
-  scene3: {
-    left: { title: "\u53EA\u770B\u9AD8\u5CF0", subtitle: "\u5168\u90E8\u4EA4\u7D66 AI" },
-    right: { title: "\u53EA\u770B\u4F4E\u8C37", subtitle: "\u5B8C\u5168\u4E0D\u7528 AI" },
-    leftIllusionHint: "\u8AA4\u4FE1\uFF1A\u4EE5\u70BA\u90FD\u9019\u9EBC\u5F37",
-    rightIllusionHint: "\u62D2\u7528\uFF1A\u4EE5\u70BA\u90FD\u9019\u9EBC\u5F31"
-  },
-  scene4: {
-    pillars: [
-      { id: "human", title: "Expertise", subtitle: "\u5C08\u696D\u5224\u65B7" },
-      { id: "context", title: "Context", subtitle: "\u6B63\u78BA\u8CC7\u6599" },
-      { id: "harness", title: "Harness", subtitle: "\u6D41\u7A0B\u63A7\u5236" },
-      { id: "permissions", title: "Permissions", subtitle: "\u6B0A\u9650\u63A7\u7BA1" },
-      { id: "evaluation", title: "Evaluation", subtitle: "\u8A55\u4F30\u56DE\u994B" }
-    ],
-    // 「放大」是共用前綴（小字），關鍵詞放大顯示，避免五個「放大」都搶版面。
-    amplifierPrefix: "\u653E\u5927",
-    amplifier: ["\u6548\u7387", "\u7522\u80FD", "\u601D\u8003", "\u8996\u89D2", "\u6D1E\u5BDF"],
-    augmentedHint: "\u5F37\u5316\u5F8C AI \u7A69\u5B9A\u767C\u63EE"
-  },
-  scene5: {
-    title: "\u91CD\u69CB\u5DE5\u4F5C\u6D41\u7A0B\uFF0C\u8207 AI \u5354\u4F5C",
-    hero: ["\u8B93 AI \u6210\u70BA\u80FD\u529B\u653E\u5927\u5668", "\u4E0D\u662F\u804A\u5929\u5C0D\u8C61"],
-    tail: "\u5DE5\u4F5C\u6A21\u5F0F\u6539\u8B8A",
-    // 結尾定格卡的可信度註腳：影片被暫停在最後一格時，提供研究依據。
-    source: "Reference\u3000Andrej Karpathy\u300CJagged Intelligence\u300D\u3000\uFF5C\u3000HBS \xB7 BCG\u300CJagged Technological Frontier\u300D\u3000\uFF5C\u3000Google AJI\uFF082025\uFF09"
-  }
 };
 
 ;// ./src/videos/jagged-intelligence/scenes/Scene1_HumanBaseline.tsx
